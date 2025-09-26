@@ -1,23 +1,25 @@
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
+import React, { useState } from 'react';
+import { View, Button, StyleSheet } from 'react-native';
 import CounterApp from './CounterApp';
 import ColorChangerApp from './ColorChangerApp';
 
 export default function App() {
+  const [showCounter, setShowCounter] = useState(true);
+
   return (
     <View style={styles.container}>
-      <CounterApp />
-      <ColorChangerApp />
-      <StatusBar style="auto" />
+      <Button
+        title={showCounter ? "Switch to Color Changer" : "Switch to Counter App"}
+        onPress={() => setShowCounter(!showCounter)}
+      />
+      <View style={styles.appContainer}>
+        {showCounter ? <CounterApp /> : <ColorChangerApp />}
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  container: { flex: 1, paddingTop: 50 },
+  appContainer: { flex: 1 },
 });
